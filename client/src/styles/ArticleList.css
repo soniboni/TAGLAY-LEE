@@ -41,32 +41,3 @@
   font-weight: 600;
   font-size: 0.95rem;
 }
-
-.page-header-hero-container {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-}
-
-.page-header {
-  flex: 2;
-}
-
-.hero-visual {
-  flex: 1;
-}
-
-.hero-panel {
-  padding: 12px;
-  background: var(--surface);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.hero-panel img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 8px;
-}
