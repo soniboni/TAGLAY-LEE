@@ -1,0 +1,72 @@
+.footer {
+  margin-top: 80px;
+  padding: 60px 40px 20px;
+  background: linear-gradient(180deg, #0b1220, #060b16);
+  color: #d1d5db;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-container {
+  max-width: 1500px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+
+.footer-section h4 {
+  color: #ffffff;
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+}
+
+.footer-section p {
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.footer-section .muted {
+  color: #9ca3af;
+  margin-bottom: 8px;
+}
+
+/* Social icons */
+.socials {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.socials a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.socials a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Bottom bar */
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 16px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #9ca3af;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

@@ -1,0 +1,48 @@
+import './App.css'
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Layout from './components/Layout.jsx'
+
+import HomePage from './pages/Homepage.jsx'
+import ArticleListPage from './pages/ArticleListPage.jsx'
+import ArticlePage from './pages/ArticlePage.jsx'
+import AboutPage from './pages/AboutPage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
+
+
+
+const routes = [
+  {
+    path: '/',
+    element: <Layout />,
+    errorElement: <NotFoundPage />,
+    children:[
+      {
+      path:'/',
+      element:<HomePage/>
+      },
+      {
+      path:'/about',
+      element:<AboutPage/>
+      },
+      {
+      path:'/articles',
+      element:<ArticleListPage/>
+    }
+    ]
+  }
+]
+
+const router = createBrowserRouter(routes)
+
+function App() {
+ 
+  return (
+    <>
+      <RouterProvider router={router}/>
+    </>
+  )
+
+}
+
+export default App
