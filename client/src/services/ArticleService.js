@@ -2,7 +2,7 @@ import axios from 'axios';
 import constants from '../constants';
 
 const API = axios.create({
-  baseURL: `${constants.HOST}/articles`,
+  baseURL: 'http://localhost:8000/api/articles', // must match backend
 });
 
 export const fetchArticles = () => API.get('/');

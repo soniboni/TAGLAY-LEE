@@ -1,54 +1,70 @@
-import { useState, useEffect } from 'react'
-import ArticleList from '../../components/ArticleList.jsx'
-import articles from '../../../article-content.js'
-import '../../styles/ArticleList.css'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import ArticleList from '../../components/ArticleList';
+import { fetchArticles } from '../../services/ArticleService';
 
-const ArticleListPage = () => {
-    const[articleData, setArticleData] = useState ([])
-    const[isLoading, setIsLoading] = useState (true)
+function ArticleListPage() {
+  const [articleList, setArticleList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setArticleData(articles);
-            setIsLoading(false);
-        }, 1000)
+  useEffect(() => {
+    const loadArticles = async () => {
+      try {
+        setIsLoading(true);
+        const { data } = await fetchArticles();
+        const activeArticles = (data?.articles || []).filter((article) => article.isActive);
+        setArticleList(activeArticles);
+      } catch (err) {
+        console.error('Error loading articles', err);
+        setError('Unable to load articles right now.');
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-        return () => clearTimeout(timer);
-    }, []);
+    loadArticles();
+  }, []);
 
+  if (isLoading) {
+    return (
+      <div className="page">
+        <p className="muted">Loading articles...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="page">
-  <div className="page-header-hero-container">
-    <div className="page-header">
-      <p className="eyebrow">Library</p>
-      <h1>Articles crafted for UI-minded developers.</h1>
-      <p className="lead">
-        Click on the articles below to read more. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices in velit varius rutrum vitae arcu.
-      </p>
-    </div>
+      <div className="page-header">
+        <p className="eyebrow">Library</p>
+        <h1>Articles crafted for UI-minded developers.</h1>
+        <p className="lead">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Semper massa sit a, nunc volutpat
+          elit tortor.
+        </p>
+      </div>
 
-    <div className="hero-visual">
-      <div className="hero-panel">
-        <img
-          src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2372&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="Design desk with colorful UI elements"
-        />
+      {error ? (
+        <p className="muted">{error}</p>
+      ) : articleList.length > 0 ? (
+        <ArticleList articles={articleList} />
+      ) : (
+        <p className="muted">No articles available right now.</p>
+      )}
+
+      <div className="cta-banner">
+        <h3>Looking for more?</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vel purus faucibus neque sed
+          elementum feugiat.
+        </p>
+        <Link to="/about" className="button-link secondary">
+          Meet the crew
+        </Link>
       </div>
     </div>
-  </div>
-
-  <div className="article-list">
-    {isLoading ? (
-      <p>Loading articles...</p>
-    ) : articleData.length > 0 ? (
-      <ArticleList articles={articleData} /> 
-    ) : (
-      <h1>No articles available.</h1>
-    )}
-  </div>
-</div>
-  )
+  );
 }
 
-export default ArticleListPage
+export default ArticleListPage;

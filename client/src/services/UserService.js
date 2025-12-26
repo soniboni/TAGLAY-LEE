@@ -1,22 +1,17 @@
 import axios from 'axios';
 import constants from '../constants';
 
-// API Access to Front-end JSON data transformation or decoder
 const API = axios.create({
-  baseURL: `${constants.HOST}/users`,
+  baseURL: "http://localhost:8000/api/users",
 });
 
-// Fetch users
-export const fetchUsers = (user) => API.get('/', user);
-
-// Create user
-export const createUser = (user) => API.post('/', user);
-
-// Update user
-export const updateUser = (id, user) => API.put(`/${id}`, user);
-
-// Delete user
-export const deleteUser = (id) => API.delete(`/${id}`);
 
 // Login user
 export const loginUser = (credentials) => API.post('/login', credentials);
+
+
+// Other user operations (optional)
+export const fetchUsers = () => API.get('/users');
+export const createUser = (user) => API.post('/users', user);
+export const updateUser = (id, user) => API.put(`/users/${id}`, user);
+export const deleteUser = (id) => API.delete(`/users/${id}`);
