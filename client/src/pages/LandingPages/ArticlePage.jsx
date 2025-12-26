@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import articles from '../../../article-content.js';
+import { fetchArticles } from '../../services/ArticleService';
 import NotFoundPage from '../NotFoundPage.jsx';
 
 function ArticlePage() {
   const { name } = useParams();
-  const article = articles.find(a => a.name === name);
+  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  if (!article) return <NotFoundPage />;
+  useEffect(() => {
+    const loadArticle = async () => {
+      try {
+        setLoading(true);
+        const { data } = await fetchArticles();
+        const found = data.articles.find(a => a.name === name && a.isActive);
+        if (!found) {
+          setError('Article not found.');
+        } else {
+          setArticle(found);
+        }
+      } catch (err) {
+        console.error('Error fetching article:', err);
+        setError('Unable to load article.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadArticle();
+  }, [name]);
+
+  if (loading) return <p className="muted">Loading article...</p>;
+  if (error) return <NotFoundPage />;
 
   const contentArray = Array.isArray(article.content) ? article.content : [article.content];
 
