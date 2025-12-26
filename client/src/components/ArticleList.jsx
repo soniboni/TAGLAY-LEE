@@ -1,17 +1,31 @@
-import {Link} from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/ArticleList.css';
 
-const ArticleList = ({articles}) => {
+function ArticleList({ articles }) {
   return (
-        <>
-            {/* articles[0]['title'].toString()*/}
-            {articles.map(article => (
-                <Link key={article.name} to={`/articles/${article.name}`}>
-                    <h3>{article.title}</h3>
-                    <p>{article.content[0].substring(0,150)}...</p>
-                </Link>
-            ))}
-        </>
-  )
+    <div className="article-list">
+      {articles.map((article) => {
+        const words = article.content.join(' ').split(' ').length;
+        const minutes = Math.max(2, Math.ceil(words / 70));
+
+        return (
+          <Link
+            key={article.name}
+            to={`/articles/${article.name}`}
+            className="article-card"
+          >
+            <div className="article-card__meta">
+              <span className="pill">React guide</span>
+              <span className="muted">{minutes} min read</span>
+            </div>
+            <h3>{article.title}</h3>
+            <p>{article.content[0].substring(0, 140)}...</p>
+          </Link>
+        );
+      })}
+    </div>
+  );
 }
 
-export default ArticleList
+export default ArticleList;

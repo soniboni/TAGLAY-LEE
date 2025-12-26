@@ -3,10 +3,10 @@ import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 
-import HomePage from './pages/Homepage.jsx'
-import ArticleListPage from './pages/ArticleListPage.jsx'
-import ArticlePage from './pages/ArticlePage.jsx'
-import AboutPage from './pages/AboutPage.jsx'
+import HomePage from './pages/LandingPages/Homepage.jsx'
+import ArticleListPage from './pages/LandingPages/ArticleListPage.jsx'
+import ArticlePage from './pages/LandingPages/ArticlePage.jsx'
+import AboutPage from './pages/LandingPages/AboutPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 
 
