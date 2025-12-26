@@ -28,7 +28,11 @@ const routes = [
       {
       path:'/articles',
       element:<ArticleListPage/>
-    }
+      },
+      {
+      path:'/articles/:name',
+      element:<ArticlePage/>
+      }
     ]
   }
 ]
